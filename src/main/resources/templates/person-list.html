@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>People</title>
+</head>
+<body>
+<div th:switch="${people}">
+    <h2 th:case="null">No people found!</h2>
+    <div th:case="*">
+        <h2>Users</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>E-mail</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="person : ${people}">
+                <td th:text="${person.id}"></td>
+                <td th:text="${person.name}"></td>
+                <td th:text="${person.age}"></td>
+                <td th:text="${person.email}"></td>
+                <td><a th:href="@{people/person-update/{id}(id=${person.id})}">Edit</a></td>
+                <td><a th:href="@{people/person-delete/{id}(id=${person.id})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <form th:action="@{/people/person-create}" method="get">
+        <input type="submit" value="Create new person"/>
+    </form>
+
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
+    </form>
+</div>
+</body>
+</html>
